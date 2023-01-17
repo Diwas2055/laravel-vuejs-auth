@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  #MySQL Service
+  db:
+    image: mysql:5.7
+    container_name: db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8001:3306"
+    environment:
+      MYSQL_DATABASE: laraveldb
+      MYSQL_USER: laraveluser
+      MYSQL_PASSWORD: laravel_db_password
+      MYSQL_ROOT_PASSWORD: mysql_root_password
+    volumes:
+      - mysqldata:/var/lib/mysql/
+    networks:
+      - laravel_docker
+
+#Docker Networks
+networks:
+  laravel_docker:
+    driver: bridge
+#Volumes
+volumes:
+  mysqldata:
+    driver: local
